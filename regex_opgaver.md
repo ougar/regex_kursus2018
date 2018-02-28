@@ -51,12 +51,6 @@ Kan du løse opgave 2.5 uden brug af klammer, men kun med brug af character clas
 
 ## 5 Special Characters
 
-* -
-* ^
-* .
-* $
-* |
-
 
 ### 5.2 `^ $`, start/slutning af en streng
 
@@ -76,13 +70,15 @@ Kan du finde alle heldige tal? Hvad med alle ikke-heldige tal? Prøv først, [ku
 
 Find alle ikke tal i [tekst](https://regex101.com/r/VvQhNO/1), ved brug af `^` og `[]`. Hvad er forskellen på din løsning og `[a-z]`?
 
+### 5.5 `|`, eller
+
 
 ## 6 Groups
 * **6.1** Lav en capture gruppe, der fanger alle filnavne, *uden* deres extension. [listen over filnavne](https://regex101.com/r/blti61/1)
 * **6.2** En del af filnavne har 2 extensions. Lav et mønster med 2 capture groups, til at fange hhv. første og anden extension.
 
 
-*hint* Filnavnet ligger i starten af en linie!
+*hint* Filnavnet ligger i starten af en linje!
 
 ## Regex Crosswords
 
