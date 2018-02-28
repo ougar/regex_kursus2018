@@ -1,0 +1,267 @@
+Introduktion til Regular Expressions
+========================================================
+author: Kristian & Mads
+date: 5. marts 2018
+autosize: true
+
+Introduktion til Regular Expressions
+========================================================
+incremental: true
+  * Hvad handler det om?
+    - Pattern matching
+    - Søg (og erstat) i tekst
+
+  * Et "regular expression" er en streng, som man søger efter i en tekst
+    - Uendelige muligheder (næsten)
+
+Introduktion til Regular Expressions
+====================================
+  * Kan virke afskrækkende
+  * Ligner ofte noget der er løgn
+```{eval=FALSE}
+    <([A-Z][A-Z0-9]*)\b[^>]*>(.*?)</\1>
+  
+    [\w-]@([\w-]+\.)+[\w-]+
+  
+    ^[a-zA-Z]{1,2}\d{1}(|[a-zA-Z0-9]{1})[\s]*(|\s+)\d{1}\w{2}$
+```
+
+Introduktion til Regular Expressions
+====================================
+incremental: true
+> &nbsp;  
+>Some people, when confronted with a problem, think  
+"I know, I'll use regular expressions."  
+Now they have two problems.  
+
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- _Jamie Zawinski_
+
+&nbsp;
+
+* ... men det er faktisk relativt "lige til at gå til"
+
+* ... Man kan starte simpelt og så udvide repertoiret
+
+* ... Man skal dog lige have nogle grundlæggende ting på plads
+
+Introduktion til Regular Expressions
+====================================
+Første og mest enkle eksempel:
+
+* Regular expression (regexp):
+
+> &nbsp;  
+&nbsp;&nbsp;&nbsp;&nbsp;fantastisk
+
+&nbsp;
+
+* Tekst:
+
+> &nbsp;  
+&nbsp;&nbsp;&nbsp;&nbsp;Bordfodbold er en <span style="color:red">fantastisk</span> tilskuersport
+
+
+Regex er "et kraftfuldt værktøj"
+====================================
+incremental:true
+
+Et par mere avancerede og nyttige eksempler:
+
+* Find alle ord i en tekst og læg i en liste:
+
+``` {R}
+  ord <- "Hej. Det   er.en tekst!"
+  strsplit(ord,"[\\W]+",perl=TRUE)
+```
+
+* Find alle cpr-numre i en tekst:
+``` {r, echo=FALSE}
+  library(stringi)
+  t <- "Dette er en tekst med cprnr: 049394-1234 og der kan være flere 1234231-3421 og der er 2134 andre tal 23142342232"
+```
+``` {R}
+  stri_extract_all_regex(t,"[\\d]{6}-[\\d]{4}")
+```
+
+Grundlæggende termer
+====================
+
+* <span style='color:blue'> regex, regexp, pattern </span>  
+Mønster der beskriver en del af en tekst / det vi leder efter
+
+* <span style='color:blue'> match </span>  
+Den del af teksten, der passer (matcher) vores regex (ikke det samme som det vi leder efter!)
+
+* <span style='color:blue'> regex engine / perl regexp / PCRE </span>  
+Specifik implementering af regex, og de er desværre ikke 100% kompatible.
+
+
+Regular Expressions fra toppen
+==============================
+incremental:true
+
+Tekst matcher som udgangspunkt tekst:
+
+* Regular expression (regexp):
+
+> &nbsp;&nbsp;&nbsp;&nbsp;fodbold
+
+&nbsp;
+
+* Tekst:
+
+> &nbsp;&nbsp;&nbsp;&nbsp;Bord<span style="color:red">fodbold</span> er et psykologisk spil
+
+* Regular expressions er case sensitive  
+Dvs. den matcher ikke noget i denne tekst:
+
+> &nbsp;&nbsp;&nbsp;&nbsp;Fodbold bør spilles på et bord.
+
+Brackets
+========
+type:section
+
+[ &nbsp; &nbsp; ]
+
+
+Brackets
+========
+
+Matcher en enkelt karakter fra et sæt af karakterer
+
+```
+[abc]
+```
+
+Matcher ENTEN a, b eller c.
+
+Dvs. hele udtrykket matcher en enkelt karakter - altid kun 1
+
+> fod<span style="color:red">b</span>old
+
+> or<span style="color:red">a</span>nge
+
+> En sød <span style="color:red">a</span>be
+
+
+Brackets
+========
+
+Det kan så bruges i et større regexp mønster
+
+```
+gr[ea]y
+```
+
+Matcher "gr" efterfulgt af ENTEN "e" eller "a" efterfulgt af "y"
+
+Dvs. matcher:
+
+> The color is <span style="color:red">grey</span>
+
+> The color is <span style="color:red">gray</span>
+
+&nbsp;
+
+(*) Rækkefølgen inde i klammerne betyder ikke noget  
+[abc] == [cab]
+
+Brackets
+========
+
+Man kan bruge en bindestreg til at mathe en række karakterer:
+
+```
+[a-z]
+
+[0-9]
+
+[A-F]
+```
+
+Men der matches stadig kun en enkelt karakter i teksten!
+
+Man kan bruge flere "ranges" og kombinerer med "literals":
+
+```
+[a-zA-ZæøåÆØÅ]
+
+20[0-2][0-9]
+
+```
+
+Brackets
+========
+
+Negation: &nbsp; &nbsp; [\^]
+
+Match enhver karakter, der IKKE er i klammerne:
+
+```
+[^0-9] - match enhver karakter, der ikke er et tal
+
+[^ ] - match enhver karakter, der ikke er et mellemrum
+
+[^0-9][0-9][^0-9] - match f.eks. "a1a", "!4$"
+```
+^ SKAL stå som det første i klammerne.
+
+```
+  [A-Z^0-9]
+```
+Matcher alle store bogstaver, alle tal og \^-tegnet
+
+
+
+Specialkarakterer
+=================
+type:section
+
+
+Specialkarakterer
+=================
+
+En lille gruppe af karakterer har speciel betydning. Der er "kun" 12 af dem i alt:
+```
+   . ? * + \ ^ $ | ( ) [ {
+```
+
+Specialkarakterer
+=================
+transition:none
+- For eksempel: &nbsp; . &nbsp; (punktum)
+
+  * . &nbsp; matcher enhver karakter (*) - men kun 1! 
+
+```
+fod.old
+```
+
+Matcher 
+```
+fodbold, fodhold, fodfold, fod old  
+```
+... men ikke 
+```
+fodold, fodbbold eller fod bold
+```
+
+(*) Næsten: Matcher enhver karakter bortset fra "newline"
+
+Specialkarakterer
+=================
+
+Hvis man vil fjerne det specielle ved en specialkarakter, så skal den "escapes":
+
+```
+1. - matcher et 1-tal efterfuldt af en vilkårlig karakter
+
+1\. - matcher et 1-tal efterfulgt af et punktum
+```
+
+Test
+====
+
+#The Regex Engine Always Returns the Leftmost Match
+
+https://www.regular-expressions.info/tutorial.html
