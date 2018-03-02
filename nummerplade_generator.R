@@ -14,13 +14,16 @@ numbers <- function(n = 1) {
   sample(nmb, n, replace = TRUE)
 }
 
-danske <- list(1000)
-for (i in 1:1000){
-  danske[i] <- paste0(c(two_letters(), seperator(), numbers(2), numbers(3)), collapse = '')
+lav_nummerplader <- function(antal = 2000) {
+  
+  danske <- list(1000)
+  for (i in 1:1000){
+    danske[i] <- paste0(c(two_letters(), seperator(), numbers(2), numbers(3)), collapse = '')
+  }
+  tyske <- list(1000)
+  for (i in 1:1000){
+    tyske[i] <-paste0(c(two_letters(), seperator(), two_letters(), seperator(), numbers(2)), collapse = '')
+  }
+  
+  paste(sample(c(danske, tyske), 2000, replace = FALSE), collapse = "\n") %>% cat()
 }
-tyske <- list(1000)
-for (i in 1:1000){
-  tyske[i] <-paste0(c(two_letters(), seperator(), two_letters(), seperator(), numbers(2)), collapse = '')
-}
-
-paste(sample(c(danske, tyske), 500), collapse = "\n") %>% cat()
