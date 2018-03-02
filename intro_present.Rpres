@@ -33,11 +33,10 @@ incremental: true
 >Some people, when confronted with a problem, think  
 "I know, I'll use regular expressions."  
 Now they have two problems.  
-
+> &nbsp;<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- _Jamie Zawinski_
 
 &nbsp;
-
 * ... men det er faktisk relativt "lige til at gå til"
 
 * ... Man kan starte simpelt og så udvide repertoiret
@@ -172,6 +171,25 @@ Matcher "gr" efterfulgt af ENTEN "e" eller "a" efterfulgt af "y"
 
 (*) Rækkefølgen inde i klammerne betyder ikke noget  
 [abc] == [cab]
+
+Brackets
+========
+incremental:true
+
+Praktisk når man kun kender det man leder efter i store træk, fx når man søge efter filer.
+
+Var mit filnavn med mellemrum, bindestreg eller underscore? Og havde jeg nu husket at skrive *.R* med stort?
+
+```
+min[-_ ]fils[-_ ]navn\.[Rr]
+```
+> <br><div style="font-family: monospace">
+> andet-filnavn.ppt <br/>
+> ligegyldigt filnavn.docx <br/>
+> <span style="color:red">min fils_navn.r</span><br/>
+> ubrugelig_fil.sas <br/></div>
+
+<br/> Hov, jeg havde brugt mellemrum *og* underscore! Og endda skrevet *.R* med småt! - pinligt!
 
 Brackets
 ========
