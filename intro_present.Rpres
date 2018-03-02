@@ -71,11 +71,18 @@ Et par mere avancerede og nyttige eksempler:
 
 ``` {R}
   ord <- "Hej. Det   er.en tekst!"
+  strsplit(ord," ")
+```
+``` {R}
   strsplit(ord,"[\\W]+",perl=TRUE)
 ```
 
+Regex er "et kraftfuldt værktøj"
+====================================
+incremental:true
+
 * Find alle cpr-numre i en tekst:
-``` {r, echo=FALSE}
+``` {R}
   library(stringi)
   t <- "Dette er en tekst med cprnr: 049394-1234 og der kan være flere 1234231-3421 og der er 2134 andre tal 23142342232"
 ```
@@ -155,11 +162,11 @@ gr[ea]y
 
 Matcher "gr" efterfulgt af ENTEN "e" eller "a" efterfulgt af "y"
 
-Dvs. matcher:
+> Matcher: The color is <span style="color:red">grey</span>
 
-> The color is <span style="color:red">grey</span>
+> Matcher The color is <span style="color:red">gray</span>
 
-> The color is <span style="color:red">gray</span>
+> Matcher IKKE: The color is greay
 
 &nbsp;
 
@@ -169,7 +176,7 @@ Dvs. matcher:
 Brackets
 ========
 
-Man kan bruge en bindestreg til at mathe en række karakterer:
+Man kan bruge en bindestreg til at mathe en serie af karakterer:
 
 ```
 [a-z]
@@ -179,7 +186,7 @@ Man kan bruge en bindestreg til at mathe en række karakterer:
 [A-F]
 ```
 
-Men der matches stadig kun en enkelt karakter i teksten!
+Men klammerne matcher stadig kun en enkelt karakter i teksten!
 
 Man kan bruge flere "ranges" og kombinerer med "literals":
 
@@ -210,7 +217,6 @@ Match enhver karakter, der IKKE er i klammerne:
   [A-Z^0-9]
 ```
 Matcher alle store bogstaver, alle tal og \^-tegnet
-
 
 
 Specialkarakterer
@@ -257,6 +263,8 @@ Hvis man vil fjerne det specielle ved en specialkarakter, så skal den "escapes"
 1. - matcher et 1-tal efterfuldt af en vilkårlig karakter
 
 1\. - matcher et 1-tal efterfulgt af et punktum
+
+\\ - matcher en enkelt backslash
 ```
 
 Test
@@ -265,3 +273,17 @@ Test
 #The Regex Engine Always Returns the Leftmost Match
 
 https://www.regular-expressions.info/tutorial.html
+
+Alternation har LAVESTE precedence
+
+They have the following advantages:
+
+They are concise. It generally takes a lot more code to parse a specific regular language using a specific algorithm that you have come up with than with a regexp.
+They are quick to use. It generally takes a lot more time to write a parser for a specific regular language using a specific algorithm that you have come up with than with a regexp.
+They are easy. Once you learn the set of special characters and their meanings, it is easy to compose a regexp (although a little harder to read them). Regexps are languages themselves - a useful trait because our species has evolved to be very good at language.
+They are fast. Once compiled, they can match a string length N in O(N) time.
+They are flexible. They can match any regular language and a lot of our data is expressed as a regular language.
+They are ubiquitous. Most programming languages have basic regexp support - either through external libraries or embedded into the language itself. There is also not too much variation between the regexp languages themselves.
+
+
+I'm fond of saying that regular expressions are neither "regular" nor "expressive"
