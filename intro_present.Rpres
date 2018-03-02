@@ -176,11 +176,11 @@ Var mit filnavn med mellemrum, bindestreg eller underscore? Og havde jeg nu husk
 ```
 min[-_ ]fils[-_ ]navn\.[Rr]
 ```
-> <br>
+> <br><div style="font-family: monospace">
 > andet-filnavn.ppt <br/>
 > ligegyldigt filnavn.docx <br/>
 > <span style="color:red">min fils_navn.r</span><br/>
-> ubrugelig_fil.sas <br/>
+> ubrugelig_fil.sas <br/></div>
 
 <br/> Hov, jeg havde brugt mellemrum *og* underscore! Og endda skrevet *.R* med småt! - pinligt!
 

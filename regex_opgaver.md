@@ -47,17 +47,18 @@ Kan du lave et regex mønster, der kan finde de 248 danske nummerplader? Kan du 
 
 * En dansk nummerplade består af 2 bogstaver og 5 tal. I dette tilfælde er der en seperator imellem det sidste bogstav og det første tal
 * En tysk nummerplade består af 4 bogstaver og 2 tal. Der er en seperator imellem hver blok af 2 tegn.
-* For nemhedsskyld antager vi at der altid bliver brugt een seperator, og at de eneste seperator tegn der bliver brugt er "` `" (`mellemrum`) "-" (`bindestreg`) og ":" (`kolon`)
+* For nemhedsskyld antager vi at der altid bliver brugt een seperator, og at de eneste seperator tegn der bliver brugt er " " (`mellemrum`) "-" (`bindestreg`) og ":" (`kolon`)
 
 ## 3 Character Classes
 
 **Opgave 3.1**
 Kan du løse opgave 2.5 uden brug af klammer, men kun med brug af character classes? Du kan antage at seperatoren kan være et hvilketsomhelst tegn, undtagen bogstaver eller tal (alle ikke-alfa-numeriske tegn). Kig under *meta sequences* i kassen *Quick References* på regex101.com for at få inspiration til character classes du kan bruge i dit mønster.
 
-## 4 Repititions, +,*
+## 4 Repititions, +,*,?
 
 * **4.1** Kan du forkorte længden af dit mønster fra opgave 3.1 vha. repititions? 
 * **4.2** Kan du lave en udgave som også vil kunne godtage nummerplader *uden* et seperator tegn?
+* **4.3** opgave 4.2 kan løses ved brug af 2 forskellige repitition tegn. Kan du finde en metode mere?
 
 ## 5 Special Characters
 
@@ -70,26 +71,23 @@ Hvor mange gange optræder ordet "the" i starten af en film-titel ifht. indeni e
 
 * **5.3.1** Kan du finde alt hvad der står i parantes i film-titlerne? Kan du finde alle punktummer?
 
-* **5.3.2** Hvad er forskellen på `.*` og `.*?` ? Kig på [listen over filnavne](https://regex101.com/r/blti61/1) og test forskellen på `.*?\.`, `.*\.`
+* **5.3.2** Hvad er forskellen på `.*` og `.*?` ? Kig på [listen over filnavne](https://regex101.com/r/blti61/2) og test forskellen på `.*?\.`, `.*\.`
 
 
-### 5.4 `[^]`,  undtagen
-I kina er 8 et heldigt tal, der repræsenterer lykke. I vesten er 7 ofte forbundet med held, hvorimod 13 er uheld. I Kina frygter man tallet 4, da de udtales ligesom ordet for død.
+### 5.4 `|`, eller
 
-Kan du finde alle heldige tal? Hvad med alle ikke-heldige tal? Prøv først, [kun iblandt numre](https://regex101.com/r/rQDpCR/1), og derefter se om du kan finde dem frem i en [tekst](https://regex101.com/r/VvQhNO/1).
-
-Find alle ikke tal i [tekst](https://regex101.com/r/VvQhNO/1), ved brug af `^` og `[]`. Hvad er forskellen på din løsning og `[a-z]`?
-
-### 5.5 `|`, eller
-
+* **5.4.1** Kan du finde alle `Rmd` og `txt` filer i [listen over filnavne](https://regex101.com/r/blti61/2) ?
 
 ## 6 Groups
-* **6.1** Lav en capture gruppe, der fanger alle filnavne, *uden* deres extension. [listen over filnavne](https://regex101.com/r/blti61/1)
+* **6.1** Lav en capture gruppe, der fanger alle filnavne, *uden* deres extension. [listen over filnavne](https://regex101.com/r/blti61/2)
 * **6.2** En del af filnavne har 2 extensions. Lav et mønster med 2 capture groups, til at fange hhv. første og anden extension.
 
 
 *hint* Filnavnet ligger i starten af en linje!
 
 ## Regex Crosswords
+Hvis du bliver hurtigt færdig med en opgave, kan du hjælpe din kollega, eller prøve kræfter med regex krydsord.
+
+[![](assets/regexcrosswords.PNG)](https://regexcrossword.com/)
 
 * https://regexcrossword.com/
