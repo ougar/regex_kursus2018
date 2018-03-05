@@ -4,6 +4,7 @@ author: Kristian & Mads
 date: 5. marts 2018
 autosize: true
 
+
 Introduktion til Regular Expressions
 ========================================================
 incremental: true
@@ -13,6 +14,7 @@ incremental: true
 
   * Et "regular expression" er en streng, som man søger efter i en tekst
     - Uendelige muligheder (næsten)
+
 
 Introduktion til Regular Expressions
 ====================================
@@ -26,6 +28,7 @@ Introduktion til Regular Expressions
     ^[a-zA-Z]{1,2}\d{1}(|[a-zA-Z0-9]{1})[\s]*(|\s+)\d{1}\w{2}$
 ```
 
+
 Introduktion til Regular Expressions
 ====================================
 incremental: true
@@ -37,17 +40,18 @@ Now they have two problems.
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- _Jamie Zawinski_
 
 &nbsp;
-* ... men det er faktisk relativt "lige til at gå til"
+* ... det er VOLDSOMT smart"
 
-* ... Man kan starte simpelt og så udvide repertoiret
+* ... man kan starte simpelt og så udvide repertoiret
 
-* ... Man skal dog lige have nogle grundlæggende ting på plads
+* ... man skal dog lige have nogle grundlæggende ting på plads
+
 
 Introduktion til Regular Expressions
 ====================================
-Første og mest enkle eksempel:
+Så lad os kaste os ud i det med det samme:
 
-* Regular expression (regexp):
+* Første og mest enkle eksempel: Literal strings
 
 > &nbsp;  
 &nbsp;&nbsp;&nbsp;&nbsp;fantastisk
@@ -122,6 +126,20 @@ Tekst matcher som udgangspunkt tekst:
 Dvs. den matcher ikke noget i denne tekst:
 
 > &nbsp;&nbsp;&nbsp;&nbsp;Fodbold bør spilles på et bord.
+
+Øvelse
+======
+type: section
+Øvelse 1
+
+* Gå til: http://ougar.dk/R/regex_kursus2018/regex_opgaver.html
+
+* Kig på øvelse 1, og så går vi videre her om lidt.
+
+* Vi havde tænkt at man løste øvelserne 2 og 2.
+
+* Man kan også løse dem alene, hvis man har mere lyst til det.
+
 
 Brackets
 ========
@@ -236,6 +254,198 @@ Match enhver karakter, der IKKE er i klammerne:
 ```
 Matcher alle store bogstaver, alle tal og \^-tegnet
 
+Øvelse 2
+========
+type:section
+
+* Linket til dem der har lukket siden:  
+http://ougar.dk/R/regex_kursus2018/regex_opgaver.html
+
+* Lav øvelse 2
+
+Character classes
+=================
+type:section
+
+Character classes
+=================
+* En række grupper af tegn bruges rigtig tit.
+* Derfor findes der en række navngivne klasser:
+
+> &nbsp; \d
+```
+  Digit - Det samme som [0-9] - dvs et tal
+```  
+>  &nbsp; \w
+```
+   Word character - Det samme som  
+   [A-Za-z0-9_]  
+   - dvs. et tal, bogstav eller _ 
+```
+
+Character classes
+=================
+
+> &nbsp; \s
+```
+  white Space - Mellemrum
+  Typisk samme som [ \t\r\n\f]
+```  
+
+Character classes
+=================
+
+* Forkortelserne kan bruges både i og udenfor klammer:
+
+> &nbsp; \s\d\d\s
+```
+  Matcher 2 cifre mellem 2 "mellemrum"
+```  
+
+> &nbsp; [\s\d]
+```
+  Matcher ENTEN et ciffer eller et mellemrum
+```  
+
+Character classes
+=================
+
+Der er også defineret OMVENDTE klasser - dvs. alt der IKKE er en del af klassen
+
+> &nbsp; \S
+```
+  Ikke mellemrum [^ \t\r\n\f]
+```  
+> &nbsp; \D
+```
+  Alt andet end tal [^0-9]
+```  
+> &nbsp; \W
+```
+  Alt andet end "word chars" [^0-9a-zA-Z_]
+```  
+
+Character classes
+=================
+
+Eksempel:
+
+> &nbsp; \W\d\W
+```
+Et tal (\d) mellem 2 tegn der IKKE er ord-tegn (\W)
+```
+
+> En dreng på <span style="color:red;text-decoration:underline">&nbsp;&nbsp;8&nbsp;&nbsp;</span> år boede på <span style="color:red;text-decoration:underline">&nbsp;&nbsp;6.</span> sal med sin 12-årige bror og lavede E2E processer.
+
+Øvelse
+======
+type:section
+
+
+Repetitions / Gentagelser
+=========================
+type:section
+```
+* + ?
+```
+
+Repetitions / Gentagelser
+=========================
+Når man matcher et element, så kan man fortælle hvor mange af dem man vil matche.
+
+> &nbsp;  
+> &nbsp;&nbsp;&nbsp; *
+```
+Match det tidligere element et vilkårligt antal gange (incl. 0)
+```
+
+Repetitions / Gentagelser
+=========================
+
+> &nbsp; LO*L
+```
+Match L + et vilkårligt antal O'er + L
+```
+
+> Hehe <span style="color:red">LOL</span>, meget sjovt.  
+> &nbsp;  
+> Haha <span style="color:red">LOOOOOOL</span>, sindsygt sjovt.  
+> &nbsp;  
+> HA<span style="color:red">LL</span>O, det er jo ikke sjovt.
+
+
+Repetitions / Gentagelser
+=========================
+* Virker også med serier, og matcher _serien_ ikke det fundne tegn:
+
+> &nbsp; "[0-9]*"
+```
+Match " + et vilkårligt antal tal + "
+```
+
+> "Hans", <span style="color:red">"3848"</span>, "Olsen"  
+> &nbsp;  
+> "Klaus", <span style="color:red">"0000001"</span>, "2Nielsen"
+
+Repetitions / Gentagelser
+=========================
+> &nbsp;  
+> &nbsp;&nbsp;&nbsp; +
+```
+Match det tidligere element et vilkårligt antal gange, men MINDST 1 gang
+```
+
+Repetitions / Gentagelser
+=========================
+
+> &nbsp; [0-9]+
+```
+Match et tal en eller flere gange  
+(tag så mange som muligt)
+```
+> Der er <span style="color:red">123</span> bolde  
+
+&nbsp;
+
+> &nbsp; LO+L
+
+> Haha <span style="color:red">LOOOOOOL</span>, sindsygt sjovt.  
+> &nbsp;  
+> HALLO, det er jo ikke sjovt
+
+
+Repetitions / Gentagelser
+=========================
+> &nbsp;  
+> &nbsp;&nbsp;&nbsp; ?
+```
+Match det tidligere element 0 eller 1 gang (dvs. "optional")
+```
+
+Repetitions / Gentagelser
+=========================
+
+> &nbsp; regexp?
+
+> De der <span style="color:red">regexp</span> er ret smarte...  
+> Også når man kalder dem <span style="color:red">regex</span>  
+> Det er dog mærkeligt at kalde dem <span style="color:red">regexp</span>ppp
+
+&nbsp;
+
+> &nbsp; \s[a-z]*[0-9]?\s
+```
+  Match et antal små bogstaver samt EVENTUELT et enkelt tal omringet af mellemrum
+```
+> NAVN: <span style="color:red">model2</span>  
+> NAVN: M<span style="color:red">odel</span> 2
+  
+  
+Øvelse
+======
+type:section
+
+Øvelse 4
 
 Specialkarakterer
 =================
@@ -253,13 +463,27 @@ En lille gruppe af karakterer har speciel betydning. Der er "kun" 12 af dem i al
 Specialkarakterer
 =================
 transition:none
-- For eksempel: &nbsp; . &nbsp; (punktum)
-
-  * . &nbsp; matcher enhver karakter (*) - men kun 1! 
-
+> &nbsp; . &nbsp; (punktum)
 ```
-fod.old
+ . matcher enhver karakter (*) - men kun 1! 
 ```
+
+&nbsp;
+
+> Dvs. svarer til: [ALLE_TEGN]
+
+&nbsp;
+
+(*) Næsten: Matcher enhver karakter bortset fra "newline"
+
+Specialkarakterer
+=================
+transition:none
+
+> &nbsp;  
+> &nbsp; fod.old
+
+&nbsp;
 
 Matcher 
 ```
@@ -270,20 +494,214 @@ fodbold, fodhold, fodfold, fod old
 fodold, fodbbold eller fod bold
 ```
 
-(*) Næsten: Matcher enhver karakter bortset fra "newline"
+Specialkarakterer
+=================
+transition:none
+
+```
+  .*
+  
+```
+> Matcher et vilkårligt antal af et hvilken som helst tegn  
+> &nbsp;  
+> Meget vigtigt pattern. Matcher _alt_
+
 
 Specialkarakterer
 =================
 
 Hvis man vil fjerne det specielle ved en specialkarakter, så skal den "escapes":
 
+> &nbsp;  
+> &nbsp;1.
 ```
-1. - matcher et 1-tal efterfuldt af en vilkårlig karakter
-
-1\. - matcher et 1-tal efterfulgt af et punktum
-
-\\ - matcher en enkelt backslash
+ Matcher et 1-tal efterfuldt af en vilkårlig karakter
 ```
+
+&nbsp;
+
+> &nbsp;  
+> &nbsp;1\\\\.
+```
+  Matcher et 1-tal efterfulgt af et punktum
+```
+
+Specialkarakterer
+=================
+
+Hvis man vil fjerne det specielle ved en specialkarakter, så skal den "escapes":
+
+> &nbsp;  
+> &nbsp; \\\\ \\\\
+```
+Matcher en enkelt backslash
+```
+
+> &nbsp;  
+> &nbsp; \\\\&nbsp;.&nbsp;\\\\&nbsp;*
+```
+Matcher et punktum efterfulgt af en asterix
+```
+
+Specialkarakterer
+=================
+
+Anchors: ^ og $
+
+> &nbsp; ^
+```
+  Matcher starten på en streng
+```
+
+> &nbsp; $
+```
+  Matcher slutningen på en streng
+```
+
+Bemærk starten/slutningen er IKKE det første/sidste tegn...  
+^ og $ har "zero-length match"
+
+Specialkarakterer
+=================
+
+> &nbsp; \^ja
+
+&nbsp;
+
+> <span style='color:red'>ja</span> det er rigtigt
+>   
+> Svaret er ja
+>
+> tja det ved jeg ikke
+
+
+
+Specialkarakterer
+=================
+
+> &nbsp; \^$
+```
+  Matcher en tom streng
+```
+
+&nbsp;
+
+Nu kan vi lave mere komplicerede men SMARTE mønstre
+
+```
+  ^\s*#.*
+```
+
+>  Matcher en kommentar-linie i R  
+>  (Hvor hele linien er en kommentar)
+
+
+Specialkarakterer
+=================
+
+Man skal huske at betydningen kan afhænge af hvor i et regexp et tegn benyttes:
+
+> \^hej
+```
+  Matcher "hej"" som det første i en streng
+```
+&nbsp;
+> [\^hej]
+```
+  Matcher et tegn der IKKE er h,e eller j
+```
+&nbsp;
+> [hej\^]
+```
+  Matcher enten et h,e,j eller ^
+```
+
+Specialkarakterer
+=================
+
+Anchors:
+
+```
+\b
+```
+
+> Matcher en word-boundary
+>
+> Også et zero-length match (ligesom \^ og $)
+>
+> Matcher ordgrænser  
+> (\W til \w eller \w til \W)
+
+```
+\bbold\b
+```
+> Denne fodbold er en smuk <span style='color:red'>bold</span>
+
+Specialkarakterer
+=================
+
+```
+  \b[0-9]+\b
+```
+
+> Matcher et tal af vilkårlig længde
+
+&nbsp;
+
+```
+  \W[0-9]*\W
+```
+
+> Næsten det samme, men matchet er forskelligt
+
+Alternation
+===========
+```
+  | (eller)
+```
+> Match det ene udtryk eller det andet
+>
+> [ab] matcher enten a eller b
+>
+> | er det samme, bare på udtryk
+
+Alternation
+===========
+```
+  kat|hund
+  
+```
+> En <span style='color:red'>kat</span> og en <span style='color:red'>hund</span> kan tilsammen udgøre en <span style='color:red'>kat</span>astrofe
+
+&nbsp;
+
+Man kan have lige så mange man har lyst til:
+```
+  kat|hund|fisk|giraf
+  
+```
+> <span style='color:red'>kat</span>te og <span style='color:red'>hund</span>e er nemmere at passe end <span style='color:red'>giraf</span>fer
+
+
+Alternation
+===========
+| har laveste "operator precedence" - dvs den tager alt med:
+```
+  \bkat|hund\b
+  
+```
+> En hankat og en hun<span style='color:red'>hund</span> kan ende i et hundeslagsmål og en <span style='color:red'>kat</span>tepine 
+
+
+Øvelse
+======
+
+Øvelse 5
+
+Hvornår skal man IKKE bruge reg-exp
+===================================
+
+
 
 Test
 ====
