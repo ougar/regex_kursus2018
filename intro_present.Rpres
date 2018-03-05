@@ -817,27 +817,81 @@ Næste gang vil vi bruge det endnu mere, til f.eks. søg og erstat.
 
 Øvelse 5 + 6
 
+Reklame
+=======
+Hvorfor er det så smart?
+
+* Ofte både mere robuste / præcise / generelle
+* Kan generelt give kortere og mere præcis kode
+* Med lidt erfaring, så er de meget hurtige og nemme at lave
+* De er meget hurtige, typisk O(n)
+* De er typisk tilgængelige i alle programmeringssprog
+
+Hvornår skal man bruge reg-exp
+==============================
+
+* Hvis du ikke søger efter en specifik streng (literals)
+
+* Mange string-funktioner i R understøtter regular expressions:
+* strsplit, sub
+* grep (<span style='color:red'>g</span>lobal
+        <span style='color:red'>r</span>egular
+        <span style='color:red'>e</span>xpression
+        <span style='color:red'>p</span>rint)
+* Så bare udnyt mulighederne, når behovet er der
+* Næste gang vil vi fokusere på regexp i R
+
 Hvornår skal man IKKE bruge reg-exp
 ===================================
 
+* Hvis man laver simple søgninger, kan der være hurtigere muligheder.
 
-Test
-====
+* Hvis problemet kan løses nemmere:
+	- substr / basename / dirname
 
-#The Regex Engine Always Returns the Leftmost Match
+* Hvis problemet er for komplekst
+	- Når man går fra "matching" til "parsing"
+	- Brug f.eks. en passende parser i stedet (html/xml/etc.)
 
-https://www.regular-expressions.info/tutorial.html
+* Hvis det ender i et misbrug
+	- Email validation gone crazy
+	- Url validation gone crazy
 
-Alternation har LAVESTE precedence
+Hvornår skal man IKKE bruge reg-exp
+===================================
+General Email Regex (RFC 5322 Official Standard)
+```
+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+```
 
-They have the following advantages:
+Don't do that...
 
-They are concise. It generally takes a lot more code to parse a specific regular language using a specific algorithm that you have come up with than with a regexp.
-They are quick to use. It generally takes a lot more time to write a parser for a specific regular language using a specific algorithm that you have come up with than with a regexp.
-They are easy. Once you learn the set of special characters and their meanings, it is easy to compose a regexp (although a little harder to read them). Regexps are languages themselves - a useful trait because our species has evolved to be very good at language.
-They are fast. Once compiled, they can match a string length N in O(N) time.
-They are flexible. They can match any regular language and a lot of our data is expressed as a regular language.
-They are ubiquitous. Most programming languages have basic regexp support - either through external libraries or embedded into the language itself. There is also not too much variation between the regexp languages themselves.
+Næste gang
+==========
 
+* Søg og erstat. Brug de matchede grupper i erstat-delen
 
-I'm fond of saying that regular expressions are neither "regular" nor "expressive"
+* Navngivne capture groups
+
+* Greedy / non-greedy modifiers
+
+* Lookahead / loogbehind - Glem dele af det der belv matchet
+
+* ... det bliver endnu bedre :-)
+
+Læring
+======
+
+&nbsp;
+
+https://regex101.com 
+* Test dine regex udtryk
+
+&nbsp;
+
+https://www.regular-expressions.info/ 
+* Lær alt om regex
+
+&nbsp;
+
+Nettet BUGNER af materiale om regexp i alle sprog
