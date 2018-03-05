@@ -439,8 +439,65 @@ Repetitions / Gentagelser
 ```
 > NAVN: <span style="color:red">model2</span>  
 > NAVN: M<span style="color:red">odel</span> 2
-  
-  
+
+Repetitions / Gentagelser
+=========================
+```
+{ }
+```
+> Angiv antallet af gentagelser  
+> &nbsp;  
+> { _antal_ }  
+> &nbsp;  
+> eller  
+> &nbsp;  
+> { _minvalue_ , _maxvalue_ }
+
+Repetitions / Gentagelser
+=========================
+```
+a{4}
+```
+> Match præcis 4 a'er (samme som aaaa)
+
+```
+\d{4,8}
+```
+> Match mellem 4 og 8 tal (så mange som muligt)  
+> &nbsp;  
+> 123 er mindre end <span style='color:red'>4321</span> som er mindre end <span style='color:red'>545453</span>  
+> &nbsp;  
+> Nummeret er <span style='color:red'>12345678</span>901
+
+Repetitions / Gentagelser
+=========================
+> Hvis man dropper minimum-tallet, så tolkes det som 0  
+> &nbsp;  
+> Hvis man dropper maksimum-tallet, så tolkes det som ∞
+
+```
+\d{,10}
+```
+> Match op til 10 cifre
+
+```
+\d{2,}
+```
+> Match 2 eller flere cifre
+
+Repetitions / Gentagelser
+=========================
+
+> De tre special-tegn vi bruger til gentagelser, kan dermed også udtrykkes vha. curly braces:
+
+```
+{0,1} == ?
+
+{0,} == *
+
+{1,} == +
+```
+
 Øvelse
 ======
 type:section
@@ -692,15 +749,76 @@ Alternation
 ```
 > En hankat og en hun<span style='color:red'>hund</span> kan ende i et hundeslagsmål og en <span style='color:red'>kat</span>tepine 
 
+> Dvs. matcher alt til venstre for | med alt til højre
+
+Alternation
+===========
+
+Hvis man vil begrænse hvor meget | operatoren matcher, så bruger man parenteser:
+
+```
+(hånd|fod)bold
+```
+> Rundbold og <span style='color:red'>håndbold</span> spilles ikke med <span style='color:red'>fodbold</span>e
+
+
+Groups
+=======
+type:section
+
+Groups
+======
+```
+  ( )
+```
+> Parenteser kan benyttes i andre sammenhænge også.
+
+> F.eks. sammen med repetitioner:
+
+```
+(abc)+
+```
+> Matcher <span style='color:red'>abc</span> og <span style='color:red'>abcabcabc</span>
+
+Groups
+======
+En af de smarte ting ved grupper er, at man efterfølgende kan referere tilbage til den matchede tekst.
+
+```
+(fod|hånd)bold .* \1en
+```
+> <span style='color:red'>fodbold spilles med foden</span>
+
+> <span style='color:red'>håndbold spilles med hånden</span>
+
+> fodbold spilles med hånden
+
+> håndbold spilles med foden
+
+Læg mærke til, at det er matchet der gentages ikke regex-udtrykket.
+
+Groups
+======
+```
+(\w+) \1
+```
+Find det samme ord 2 gange i træk
+
+> Led i denne streng
+
+> Og led i <span style='color:red'>denne denne</span> streng
+
+&nbsp;
+
+Næste gang vil vi bruge det endnu mere, til f.eks. søg og erstat.
 
 Øvelse
 ======
 
-Øvelse 5
+Øvelse 5 + 6
 
 Hvornår skal man IKKE bruge reg-exp
 ===================================
-
 
 
 Test
