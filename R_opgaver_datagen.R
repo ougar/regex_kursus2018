@@ -30,3 +30,15 @@ assert_nummerplader <- function(df) {
     stop("Der er en fejl i opgaven. Prøv igen")    
   }
 }
+
+get_journal <- function(){
+  source("symptom_generator.R")
+  data_frame(id = 1:100, patient_id = id,
+             symptomer = make_symptomer(100, FALSE),
+             har_feber = NA, har_smerte = NA, har_rygsmerte = NA
+             ) %>% 
+    rowwise() %>%  mutate(patient_id = paste(c(sample(LETTERS, 2), '-', sample(0:9, 5)), collapse = ''))
+    
+}
+
+assert_patient(row, )
