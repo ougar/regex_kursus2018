@@ -299,7 +299,7 @@ Character classes
   Matcher 2 cifre mellem 2 "mellemrum"
 ```  
 
-> &nbsp; [\s\d]
+> &nbsp; [\d\s]
 ```
   Matcher ENTEN et ciffer eller et mellemrum
 ```  
@@ -338,12 +338,13 @@ Et tal (\d) mellem 2 tegn der IKKE er ord-tegn (\W)
 ======
 type:section
 
+Øvelse 3
 
 Repetitions / Gentagelser
 =========================
 type:section
 ```
-* + ?
+* + ? { }
 ```
 
 Repetitions / Gentagelser
@@ -519,7 +520,7 @@ Specialkarakterer
 transition:none
 > &nbsp; . &nbsp; (punktum)
 ```
- . matcher enhver karakter (*) - men kun 1! 
+ . matcher enhver karakter - men kun 1! 
 ```
 
 &nbsp;
@@ -528,7 +529,7 @@ transition:none
 
 &nbsp;
 
-(*) Næsten: Matcher enhver karakter bortset fra "newline"
+Bemærk: Matcher enhver karakter bortset fra "newline"
 
 Specialkarakterer
 =================
@@ -708,6 +709,44 @@ Specialkarakterer
 
 > Næsten det samme, men matchet er forskelligt
 
+Greedy / non-greedy
+===================
+
+Et regular expression matcher så meget den kan:
+
+```
+a.*a
+```
+> Her m<span style='color:red'>atcher vi alt fra første til sidste a</span> i sætningen
+
+Greedy / non-greedy
+===================
+
+Hvis man tilføjer et ? så bliver multiplieren non-greedy:
+
+```
+a.*?a
+```
+> Her m<span style='color:red'>atcher vi a</span>lt fr<span style='color:red'>a første til sidste a</span> i sætningen
+
+Greedy / non-greedy
+===================
+
+```
+Nr\d+?
+```
+> Matcher kun <span style='color:red'>Nr1</span>23
+
+```
+Nr\d+9
+```
+> Matcher <span style='color:red'>Nr11931312391239</span>12
+
+```
+Nr\d+?9
+```
+> Matcher <span style='color:red'>Nr119</span>3131239123912
+
 Alternation
 ===========
 ```
@@ -758,6 +797,10 @@ Hvis man vil begrænse hvor meget | operatoren matcher, så bruger man parentese
 ```
 > Rundbold og <span style='color:red'>håndbold</span> spilles ikke med <span style='color:red'>fodbold</span>e
 
+Øvelse
+======
+
+Øvelse 5
 
 Groups
 =======
@@ -812,7 +855,7 @@ Næste gang vil vi bruge det endnu mere, til f.eks. søg og erstat.
 Øvelse
 ======
 
-Øvelse 5 + 6
+Øvelse 6
 
 Reklame
 =======
@@ -870,9 +913,9 @@ Næste gang
 
 * Navngivne capture groups
 
-* Greedy / non-greedy modifiers
-
 * Lookahead / loogbehind - Glem dele af det der belv matchet
+
+* Og meget mere...
 
 * ... det bliver endnu bedre :-)
 
