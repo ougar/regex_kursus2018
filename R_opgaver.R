@@ -2,26 +2,45 @@ library(stringi)
 library(tidyverse)
 source("R_opgaver_datagen.R")
 
+#**************************#
+#### Introduktion ...   ####
+#**************************#
+#
+# Ser du 3 prikker, så skal du kode!
+#
+# Alle opgaver er sat op til at du/skal færdiggøre
+# noget kode, der hvor der er 3 prikker `...`
+#
+# Som opgaverne skrider frem, skal du kode mere og mere, og det er ikke kun 
+# regex du skal lave, men også manipulation af data_frames, gerne ved brug ad dplyr
+
+
+
+
 
 #**************************#
 #### Stringi funktioner ####
 #**************************#
 
-# `stringi` er en meget kraftig pakke til at søge i, og manipulere tekst strenge i
+# `stringi` er en meget kraftfuld pakke til at søge, og manipulere tekst strenge i
 # R. Vi vil kun kigge på stringi's regex search & replace funktioner.
 #
 # Alle funktioner i stringi er navngivet efter et sindrigt system, som umiddelbart kan
 # se meget forvirrende ud:
 #
-# `stri_extract_all_regex`
+# fx kan en stringi funktion se sådan ud: `stri_extract_all_regex`
+# Denne funktion består af følgende 4 elementer: 
 #
 # `stri_[operation]_[scope]_[engine]`
 #
 #
-# * Operation: vil du søge, vil du replace, vil du tælle, vil du splitte. Operationen er "det du gør"
+# * stri:      basenavn, der viser at du har med en stringi funktion at gøre.
+#
+# * Operation: vil du søge, vil du replace, vil du tælle, vil du splitte? Operationen er "det du gør"
 #              Eksempler: stri_detect_*, stri_count_*
 # * Scope:     Også kaldet mode. Vil du kigge efter det første, sidste eller alle tilfælde, hvor dit regex mønster matcher?
 #              Der er en række funktioner hvor det ikke vil give mening at bruge et scope, som foreksempel `str_count`
+#
 # * Engine:    Hvordan skal dit mønster forståes. [engine] kan vælges enten via funktion navn, så som `stri_detect_regex`, 
 #              eller som et parameter i funktionen, såsom `stri_detect(regex = 'mit mønster')`.
 #              Vi vil kun kigge på regex mønstre, og vil som udgangpunkt indikere dette via parametret. Du er velkommen til at 
@@ -92,10 +111,10 @@ paste('\d')
 
 # 1.3.2 Find alle tal i følgende tekststreng, ved brug af den korrekte stringi funktion og escapes.
 
-tal <- "123456789"
+tal <- "1-2asd3ds4asd5qw6--7**8()9"
 pattern <- "\d"
 
-str_*_*(str = tal, regex = pattern)
+stri_*_*(str = tal, regex = pattern)
 
 
 
@@ -141,12 +160,73 @@ assert_nummerplader(nummerplader)
 # Du har modtaget et datasæt over patienter, hvor en af kolonnerne hedder "symptomer". 
 # Hver række repræsenterer en patient.
 #
-# * 3.1 Kan du finde antallet af patienter med feber? 
+# * 3.1 Kan du finde alle patienter med feber? 
 # * 3.2 Hvad med alle, der har smerte? 
 # * 3.3 Alle der har rygsmerter
 
 patient_journal <- get_journal()
 
+# ...
+
 assert_symptoms(har_feber, patient_journal)
 assert_symptoms(har_smerte, patient_journal)
 assert_symptoms(har_har_rygsmerte, patient_journal)
+
+
+
+#************************************#
+#### 4 - Splitting & cleaning     ####
+#************************************#
+#
+# Regex er et vigtigt værktøj når mere eller mindre struktureret data skal renses. Der er mange små
+# "got'cha" når man manuelt skal konvertere et unormalt tekstformat, og du vil i denne opgave støde ind
+# i mange små-ting, som alligvel alle er store nok til at stå fuldstændigt i vejen.
+#
+# Her er noget noisy data om en række firmaer og deres ejere. I nogle tilfælde har ejeren ikke et CVR nummer, 
+# for større firmaer kan det ske at ejeren ikke figurerer med CPR nummer, men som udgangspunkt bør de begge stå
+# i ID-kolonnen.
+# Firmaets nøgletal er skrevet i et format brugt af et forældet revisions-program, og man skal lige tænke sig om
+# før det er til at arbejde med. Men bare roligt, det hele kan nemt løses med stringi og regex!
+#
+# Noisy firma data
+# * `ID` kan enten være et CPR nummer eller et CVR nummer eller begge dele i vilkårlig rækkefølge.
+#    Nogle af dem der har tastet disse, har været flinke nok til at skrive ting såsom "CPR123456-1234, CVR12345678"
+#    mens andre bare har skrevet tallene. 
+# * `key_numbers`, Nøgletal for firmaet i formatet "[indtægter]([udgifter])/[årstal] | [skat]/[moms]/[fradrag]".
+#    Alle penge tal kan skrives med tusind-seperator [.] og komma [,]. Tal, der ikke er relevante, skrives ikke.
+#    fx: "11.235.232,92(151.100)/1996 | 1002200//250,55
+#
+#
+# Dit endelige produkt skal være en data frame med samme format som eksempel_df
+
+eksempel_df <- data_frame(cpr = "1234567890",
+                          cvr = "12345678",
+                          indtaegt = 123.45,
+                          udgift = 123.45,
+                          aar = 1996
+                          skat = 123.45,
+                          moms = 123.45,
+                          fradrag = 123.45
+                         )
+
+
+firma_df <- get_noisy_firma()
+
+
+clean_firma <- firma_df %>% mutate(...) #...
+
+assert_firma(clean_firma)
+
+# Hints
+#
+# På dansk er `.` tusind-seperator, men på engelsk (og i R) er punktum markør for
+# decimal-tal (som vi forvirrende nok kalder for komma tal. Så punktum er komma og komma er punktum!) 
+# 
+
+as.numeric("1.000,3") # giver fejl
+as.numeric("1.000") == 1 # og ikke et-tusind!
+as.numeric("1000.3") # giver et tal du forventer
+
+
+
+
