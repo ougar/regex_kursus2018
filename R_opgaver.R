@@ -230,3 +230,62 @@ as.numeric("1000.3") # giver et tal du forventer
 
 
 
+
+
+
+
+
+#************************************#
+#### 5 - T9 ordbog                ####
+#************************************#
+#
+# T9 ordbogen fungerer ved at man trykker en række tal ind, som
+# programmet vil oversætte til ord. Hvert tal kan repræsentere op til
+# 4 bogstaver. Fx er 2 A, B eller C og 7 er P, Q, R, S.
+#
+# Tag et kig på en god gammel Nokia 3310 for at se hvad hvert tal betyder
+# Nokia 3310 -> https://www.vintagemobile.fr/58/nokia-3310.jpg
+#
+# Til dem af jer, der er for unge til at have haft andet end en smart phone
+# er der en handy guide på YouTube https://youtu.be/K-zK_0fNTjY
+#
+# Fx kan man skrive "HALLO" ved at indtaste følgende tal: 4, 2, 5, 5, 6
+
+
+
+
+# Start med at overvej hvordan ovenstående kan ses som regex mønstrer
+patterns <- c('0' = '...',
+              '1' = '...')
+
+
+# Herefter skal vi have noget tekst vi kan slå op i.
+# Desværre er det ikke altid lige sådan at finde store mængder tekst i
+# et pænt format, så det skal renses!
+#
+# Her er en liste over 80.000 danske ord, deres bøjninger og disses grammatiske
+# katagori. Se http://korpus.dsl.dk/flexikon.html for dokumentation
+#
+unclean_wordlist <- readLines("data/flexikon.txt")
+
+# Du skal nu overveje om du kun vil have grundstammen (lemma) eller alle bøjninger (inflected forms).
+# Vær opmærksom på at grundstammen også optræder som den første bøjning!
+# Du skal også overveje om din tekst skal være i lower- eller uppercase. Og om det har en betydning for dine
+# regex'es!
+
+wordlist <- unclean_wordlist %>% #stri_...
+
+
+# du kan bruge dette skelet til at lave dine opslag
+opslag_i_t9 <- function(input, patterns=patterns, wordlis = wordlist) {
+  
+  pattern # <- ...input ... patterns
+  opslag <- c()
+  opslag # <- ... pattern ... wordlist
+  
+  return(opslag)
+  
+}
+
+
+assert(opslag_i_t9("42556"), "hallo")
