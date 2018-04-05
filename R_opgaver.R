@@ -1,7 +1,3 @@
-library(stringi)
-library(tidyverse)
-source("R_opgaver_datagen.R")
-
 #**************************#
 #### Introduktion ...   ####
 #**************************#
@@ -12,9 +8,12 @@ source("R_opgaver_datagen.R")
 # noget kode, der hvor der er 3 prikker `...`
 #
 # Som opgaverne skrider frem, skal du kode mere og mere, og det er ikke kun 
-# regex du skal lave, men også manipulation af data_frames, gerne ved brug ad dplyr
+# regex du skal lave, men også manipulation af data_frames, gerne ved brug af dplyr
 
-
+# Start med at loade biblioteker!
+library(stringi)
+library(tidyverse)
+source("R_opgaver_datagen.R")
 
 
 
@@ -98,23 +97,24 @@ assert(a, c('...'))
 
 #### OPGAVE 1.3 ####
 # Escape sequences. Vi lærte at `\d` og `\w` etc. har speciel betydning i regex.
-# Grundlæggende er `\` en escape character, der betyder at det umiddelbart efterfølgende skal forståes på en
-# speciel måde. `\d` skal læses som `[0-9]` og `\.` skal læses som et punktum, bogstaveligt og ikke som et wildcard
+# Grundlæggende er `\` en escape character, der betyder at det umiddelbart efterfølgende bogstav/tegn skal forståes på en
+# speciel måde. `\d` skal læses som `[0-9]` og `\.` skal læses som et punktum, bogstaveligt og ikke som et wildcard.
 #
 # Desværre er det ikke kun regex der benytter sig af escape sequences. Det gør R også. Når R ser en backslash i en 
 # tekststreng forventer den at tegnet umiddelbart efter, escapes. R vil escape alt tekst i din tekststreng inden den
 # når stringi's regex engine. Hvis R ikke kan genkende en escape character, vil R melde fejl!
 
-# 1.3.1 Hvordan vil du printe `\d`? 
+# 1.3.1 Hvordan vil du printe `\d`?
+# Prøv først at køre følgende linje kode, inden du retter den.
 
 paste('\d')
 
 # 1.3.2 Find alle tal i følgende tekststreng, ved brug af den korrekte stringi funktion og escapes.
 
 tal <- "1-2asd3ds4asd5qw6--7**8()9"
-pattern <- "\d"
+pattern <- "\d..."
 
-stri_*_*(str = tal, regex = pattern)
+stri_..._...(str = tal, regex = pattern)
 
 
 
@@ -163,8 +163,12 @@ assert_nummerplader(nummerplader)
 # * 3.1 Kan du finde alle patienter med feber? 
 # * 3.2 Hvad med alle, der har smerte? 
 # * 3.3 Alle der har rygsmerter
+#
+# Tilføj TRUE/FALSE værdier til de passende kolonner
 
 patient_journal <- get_journal()
+
+patient_journal %>% head()
 
 # ...
 
@@ -190,7 +194,7 @@ assert_symptoms(har_har_rygsmerte, patient_journal)
 #
 # Noisy firma data
 # * `ID` kan enten være et CPR nummer eller et CVR nummer eller begge dele i vilkårlig rækkefølge.
-#    Nogle af dem der har tastet disse, har været flinke nok til at skrive ting såsom "CPR123456-1234, CVR12345678"
+#    Nogle af dem der har indtastet disse, har været flinke nok til at skrive ting såsom "CPR123456-1234, CVR12345678"
 #    mens andre bare har skrevet tallene. 
 # * `key_numbers`, Nøgletal for firmaet i formatet "[indtægter]([udgifter])/[årstal] | [skat]/[moms]/[fradrag]".
 #    Alle penge tal kan skrives med tusind-seperator [.] og komma [,]. Tal, der ikke er relevante, skrives ikke.
@@ -277,7 +281,7 @@ wordlist <- unclean_wordlist %>% #stri_...
 
 
 # du kan bruge dette skelet til at lave dine opslag
-opslag_i_t9 <- function(input, patterns=patterns, wordlis = wordlist) {
+opslag_i_t9 <- function(input, patterns=patterns, wordlist = wordlist) {
   
   pattern # <- ...input ... patterns
   opslag <- c()
