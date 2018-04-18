@@ -13,12 +13,12 @@ assert <- function(x, y) {
 get_nummerplader <- function(antal = 2000) {
   source("nummerplade_generator.R")
   nummerplader <- lav_nummerplader(print = FALSE)
-  _df <- rbind(data_frame(nummerplade = nummerplader$danske, land = 'DK'),
-              data_frame(nummerplade = nummerplader$tyske, land = 'DE')
+  df <- rbind(data_frame(nummerplade = nummerplader$danske, land = 'DK'),
+               data_frame(nummerplade = nummerplader$tyske, land = 'DE')
               )
-  _df <- sample_n(_df, nrow(_df), replace = FALSE)
-  saveRDS(file = "data/nummerplader.RDS", object = _df)
-  return(_df %>% mutate(land = NA))
+  df <- sample_n(df, nrow(df), replace = FALSE)
+  saveRDS(file = "data/nummerplader.RDS", object = df)
+  return(df %>% mutate(land = NA))
 }
 
 assert_nummerplader <- function(df) {
@@ -49,6 +49,7 @@ get_journal <- function(){
          df_target,
          envir = .GlobalEnv
         )
+  df
 }
 
 

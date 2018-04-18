@@ -66,9 +66,8 @@ assert(detected, TRUE)
 #### OPGAVE 1.1 ####
 # Nu er det din tur til at checke om my_string er et CPR-nummer
 my_string <- c("111111-1111", "555-456-159")
-detected <- # ...
+detected <- ...
 assert(detected, c(TRUE, FALSE))
-
 
 
 
@@ -79,16 +78,16 @@ assert(detected, c(TRUE, FALSE))
 # skriv dit gæt i `assert()` , før du kører koden.
 
 a <- stri_extract(str = 'aaa', regex = 'a')
-assert(a, c('...'))
+assert(a, c(...))
 
 a <- stri_extract_all('aaa', regex = 'a')
-assert(a, c('...'))
+assert(a, list(c(...)))
 
 a <- stri_extract(str = 'aaa', regex = 'a+')
-assert(a, c('...'))
+assert(a, c(...))
 
 a <- stri_extract_all(str = 'aaa', regex = 'a+')
-assert(a, c('...'))
+assert(a, list(c('...')))
 
 
 
@@ -112,11 +111,10 @@ paste('\d')
 # 1.3.2 Find alle tal i følgende tekststreng, ved brug af den korrekte stringi funktion og escapes.
 
 tal <- "1-2asd3ds4asd5qw6--7**8()9"
-pattern <- "\d..."
+pattern <- "..."
 
-stri_..._...(str = tal, regex = pattern)
-
-
+extracted <- stri_..._...(str = tal, regex = pattern)
+assert(extracted, list(as.character(1:9)))
 
 
 
@@ -139,10 +137,10 @@ de_pattern <- "..."
 
 # Vi bruger dplyr's mutate til at anvende vores patterns.
 nummerplader <- nummerplader %>% 
-  mutate(land = ifelse(stri_detect(regex = dk_pattern),
+  mutate(land = ifelse(stri_detect(str = nummerplade, regex = dk_pattern),
                        'DK',
                        land),
-         land = ifelse(stri_detect(regex = de_pattern),
+         land = ifelse(stri_detect(str = nummerplade, regex = de_pattern),
                        'DE',
                        land)
          )
@@ -193,7 +191,7 @@ assert_symptoms(har_har_rygsmerte, patient_journal)
 # før det er til at arbejde med. Men bare roligt, det hele kan nemt løses med stringi og regex!
 #
 # Noisy firma data
-# * `ID` kan enten være et CPR nummer eller et CVR nummer eller begge dele i vilkårlig rækkefølge.
+# * `kunde_id` kan enten være et CPR nummer eller et CVR nummer eller begge dele i vilkårlig rækkefølge.
 #    Nogle af dem der har indtastet disse, har været flinke nok til at skrive ting såsom "CPR123456-1234, CVR12345678"
 #    mens andre bare har skrevet tallene. 
 # * `key_numbers`, Nøgletal for firmaet i formatet "[indtægter]([udgifter])/[årstal] | [skat]/[moms]/[fradrag]".
@@ -217,9 +215,9 @@ eksempel_df <- data_frame(cpr = "1234567890",
 firma_df <- get_noisy_firma()
 
 
-clean_firma <- firma_df %>% mutate(...) #...
-
 assert_firma(clean_firma)
+
+
 
 # Hints
 #
@@ -231,11 +229,16 @@ as.numeric("1.000,3") # giver fejl
 as.numeric("1.000") == 1 # og ikke et-tusind!
 as.numeric("1000.3") # giver et tal du forventer
 
+# Flere hints
+#
+# Stringi har en split funktion, som vil splitte en tekst-streng ind i en vector
+stri_split(str = "a b,c.d|e", regex = "[ ,.|]")
 
+# Men når du arbejder med data frames vil du ofte hellere splitte en kolonne til flere kolonner. Dette er 
+# ikke et job for stringi, men for tidyr! Mere præcist, tidyr::separate()
 
-
-
-
+my_df <- data_frame(bogstaver = c('aaa.bbb.ccc,dd', 'a bbb,cc.dd', 'aaa,bbb.c ddd'))
+my_df %>% separate(bogstaver, into = c('a', 'b', 'c', 'd'), sep = '[,. ]')
 
 
 
