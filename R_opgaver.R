@@ -50,10 +50,7 @@ source("R_opgaver_datagen.R")
 
 
 
-
-
-
-#### 1 - Detect - findes et pattern i en streng? ####
+#### 1 - Opvarmningsopgaver ####
 # Afgør om en regex mønster findes i en tekst-streng
 
 # EKSEMPEL
@@ -63,7 +60,7 @@ assert(detected, TRUE)
 # Du kan også bruge `fixed = 'a'` når du søger efter string literals istedet for
 # regex mønstrer - stri_detect(str = 'aaa', fixed = 'a')
 
-#### OPGAVE 1.1 ####
+#### Opgave 1.1 ####
 # Nu er det din tur til at checke om my_string er et CPR-nummer
 my_string <- c("111111-1111", "555-456-159")
 detected <- ...
@@ -71,9 +68,7 @@ assert(detected, c(TRUE, FALSE))
 
 
 
-
-
-#### OPGAVE 1.2 ####
+#### Opgave 1.2 ####
 # Hvad antager du at følgende 4 funktioner vil give af resultater?
 # skriv dit gæt i `assert()` , før du kører koden.
 
@@ -93,8 +88,7 @@ assert(a, list(c('...')))
 
 
 
-
-#### OPGAVE 1.3 ####
+#### Opgave 1.3 ####
 # Escape sequences. Vi lærte at `\d` og `\w` etc. har speciel betydning i regex.
 # Grundlæggende er `\` en escape character, der betyder at det umiddelbart efterfølgende bogstav/tegn skal forståes på en
 # speciel måde. `\d` skal læses som `[0-9]` og `\.` skal læses som et punktum, bogstaveligt og ikke som et wildcard.
@@ -116,9 +110,37 @@ pattern <- "..."
 extracted <- stri_..._...(str = tal, regex = pattern)
 assert(extracted, list(as.character(1:9)))
 
+# Kan du lave en regex, der finder alle stjernerne?
 
+asterix <- stri_..._...(str = tal, ...)
 
+assert(asterix, '**')
 
+#### Opgave 1.4 ####
+# Search and replace med capture groups
+#
+# Eksempel
+# Forestil dig en stock ticker, der løbende giver opdateringer på ændring, størrelse og valuta i følgende form:
+stock_ticker <- c("UP13DKK", "DWN65USD", "FLT100JPY")
+
+# Hvis du fx kun er interesseret i beløbene kan du nemt bruge capture groups til at fjerne tekst, der står foran
+# et tal, men beholde tekst, der står efter.
+
+stri_replace_all(stock_ticker, regex = '[A-Z]+(\\d+)', replacement = '$1')
+
+# I `UP13DKK` finder vi `UP13`, og udskifter det med `13`. Parentesen viser vores capture group og `$1` er en reference til 
+# den første capture group. Vi kan sagtens have flere. Læg mærke til at `$` er et special tegn, så hvis du vil søge efter
+# det bogstaveligt, så skal det escapes!
+
+# Du har fået en tekst hvor der diskuteres forskellige beløb, desværre var forfatteren
+# ikke bevidst om at $-tegnet skal stå foran beløb, ikke efter! Lav en regex med stringi
+# som kan rette fejlen, og test den med den følgende streng
+
+tekst <- "The price of beef rose from 1,000$ to 1,100$ overnight, while grain fell 10$ from 54.8$, which caused a 10% loss of market cap of 1,000,000$"
+
+...
+
+assert(tekst, correct_tekst)
 
 #************************************#
 #### 2 - Identificér nummerplader ####

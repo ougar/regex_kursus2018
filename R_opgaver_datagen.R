@@ -10,6 +10,8 @@ assert <- function(x, y) {
   }
 }
 
+correct_tekst <- "The price of beef rose from $1,000 to $1,100 overnight, while grain fell $10 from $54.8, which caused a 10% loss of market cap of $1,000,000"
+
 get_nummerplader <- function(antal = 2000) {
   source("nummerplade_generator.R")
   nummerplader <- lav_nummerplader(print = FALSE)
