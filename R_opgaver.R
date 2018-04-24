@@ -100,7 +100,7 @@ assert(a, list(c('...')))
 # 1.3.1 Hvordan vil du printe `\d`?
 # Prøv først at køre følgende linje kode, inden du retter den.
 
-paste('\d')
+cat('\\d')
 
 # 1.3.2 Find alle tal i følgende tekststreng, ved brug af den korrekte stringi funktion og escapes.
 
